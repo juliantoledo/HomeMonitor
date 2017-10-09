@@ -1,0 +1,164 @@
+{  
+   "swagger":"2.0",
+   "info":{  
+      "description":"Home Monitor Arduino",
+      "title":"Home Monitor Arduino",
+      "version":"1.0.0"
+   },
+   "host":"home-monitor-arduino.appspot.com",
+   "basePath":"/",
+   "consumes":[  
+      "application/json"
+   ],
+   "produces":[  
+      "application/json"
+   ],
+   "schemes":[  
+      "https"
+   ],
+   "paths":{  
+      "/webpageurl":{  
+         "post":{  
+            "description":"Create or Update a WebPageUrl",
+            "operationId":"postWebPageUrl",
+            "produces":[  
+               "application/json"
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"Created or Updated WebPageUrl"
+               }
+            },
+            "security":[  
+               {  
+                  "api_key":[  
+
+                  ]
+               }
+            ]
+         },
+         "put":{  
+            "description":"Create or Update a WebPageUrl",
+            "operationId":"putWebPageUrl",
+            "produces":[  
+               "application/json"
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"Created or Updated WebPageUrl"
+               }
+            },
+            "security":[  
+               {  
+                  "api_key":[  
+
+                  ]
+               }
+            ]
+         }
+      },
+      "/webpageurl/{id}":{  
+         "delete":{  
+            "description":"Delete one WebPageUrl",
+            "operationId":"deleteWebPageUrl",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"id",
+                  "in":"path",
+                  "type":"string"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"One WebPageUrl"
+               }
+            },
+            "security":[  
+               {  
+                  "api_key":[  
+
+                  ]
+               }
+            ]
+         }
+      },
+      "/eventannotation":{  
+         "post":{  
+            "description":"Create or Update a EventAnnotation",
+            "operationId":"postEventAnnotation",
+            "produces":[  
+               "application/json"
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"Created or Updated EventAnnotation"
+               }
+            },
+            "security":[  
+               {  
+                  "api_key":[  
+
+                  ]
+               }
+            ]
+         },
+         "put":{  
+            "description":"Create or Update a EventAnnotation",
+            "operationId":"putEventAnnotation",
+            "produces":[  
+               "application/json"
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"Created or Updated EventAnnotation"
+               }
+            },
+            "security":[  
+               {  
+                  "api_key":[  
+
+                  ]
+               }
+            ]
+         }
+      },
+      "/eventannotation/{id}":{  
+         "delete":{  
+            "description":"Delete one EventAnnotation",
+            "operationId":"deleteEventAnnotation",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"id",
+                  "in":"path",
+                  "type":"string"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"Deleted EventAnnotation"
+               }
+            },
+            "security":[  
+               {  
+                  "api_key":[  
+
+                  ]
+               }
+            ]
+         }
+      }
+   },
+   "securityDefinitions":{  
+      "api_key":{  
+         "type":"apiKey",
+         "name":"key",
+         "in":"query"
+      }
+   }
+}
