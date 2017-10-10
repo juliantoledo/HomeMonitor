@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.devpartners.webperformance.persistence.objectify;
+package com.google.devpartners.homemonitor.persistence.objectify;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
@@ -37,6 +37,10 @@ public class ObjectifyEntityPersister implements EntityPersister, Serializable {
   public ObjectifyEntityPersister() {}
 
   public <T> T getByPrimaryId(Class<T> classT, String value) {
+    return ofy().load().type(classT).id(value).now();
+  }
+
+  public <T> T getByPrimaryId(Class<T> classT, Long value) {
     return ofy().load().type(classT).id(value).now();
   }
 

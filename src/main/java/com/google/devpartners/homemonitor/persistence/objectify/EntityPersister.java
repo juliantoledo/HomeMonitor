@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.devpartners.webperformance.persistence.objectify;
+package com.google.devpartners.homemonitor.persistence.objectify;
 
 import java.util.Collection;
 import java.util.Date;
@@ -52,6 +52,15 @@ public interface EntityPersister {
    * @return T class object
    */
   <T> T getByPrimaryId(Class<T> classT, String value);
+
+  /**
+   * Gets the entity for the given class by its primary Id.
+   *
+   * @param classT the entity T class
+   * @param id the primary Id
+   * @return T class object
+   */
+  <T> T getByPrimaryId(Class<T> classT, Long value);
 
   /**
    * Gets the entity for the given class in a paginated fashion.

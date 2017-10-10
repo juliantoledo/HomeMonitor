@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.devpartners.webperformance.util;
+package com.google.devpartners.homemonitor.util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,7 +42,7 @@ public class GsonUtil {
 
   static {
     gsonBuilder = new GsonBuilder();
-    gsonBuilder.setDateFormat(DateUtil.DATE_FORMAT_REPORT);
+    gsonBuilder.setDateFormat(DateUtil.FULL_DATE_TIME_FORMAT);
   }
 
   /**

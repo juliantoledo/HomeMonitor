@@ -17,20 +17,18 @@ package com.google.devpartners.homemonitor;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import javax.cache.CacheException;
-
 import org.restlet.Restlet;
 import org.restlet.ext.swagger.SwaggerApplication;
 import org.restlet.routing.Router;
 import org.restlet.service.CorsService;
 
 import com.google.common.collect.Sets;
-import com.google.devpartners.webperformance.model.DeviceReport;
-import com.google.devpartners.webperformance.model.Device;
-import com.google.devpartners.webperformance.persistence.objectify.EntityPersister;
-import com.google.devpartners.webperformance.persistence.objectify.ObjectifyEntityPersister;
-import com.google.devpartners.webperformance.rest.DeviceReportRest;
-import com.google.devpartners.webperformance.rest.DeviceRest;
+import com.google.devpartners.homemonitor.model.Device;
+import com.google.devpartners.homemonitor.model.DeviceTemperatureHumidityReport;
+import com.google.devpartners.homemonitor.persistence.objectify.EntityPersister;
+import com.google.devpartners.homemonitor.persistence.objectify.ObjectifyEntityPersister;
+import com.google.devpartners.homemonitor.rest.DeviceRest;
+import com.google.devpartners.homemonitor.rest.DeviceTemperatureHumidityReportRest;
 import com.googlecode.objectify.ObjectifyService;
 
 /**
@@ -74,11 +72,10 @@ public class RestServer extends SwaggerApplication {
 
     router.attach("/device", DeviceRest.class);
     router.attach("/device/{id}", DeviceRest.class);
-    router.attach("/device/url/{url}", DeviceRest.class);
+    router.attach("/device/owner/{owner}", DeviceRest.class);
 
-    router.attach("/pagespeedreport", DeviceReportRest.class);
-    router.attach("/pagespeedreport/{webPageUrlId}", DeviceReportRest.class);
-    router.attach("/pagespeedreport/url/{url}", DeviceReportRest.class);
+    router.attach("/devicereport", DeviceTemperatureHumidityReportRest.class);
+    router.attach("/devicereport/{deviceId}", DeviceTemperatureHumidityReportRest.class);
 
     return router;
   }
@@ -93,13 +90,6 @@ public class RestServer extends SwaggerApplication {
 
     // Resister all Model Objects in the ObjectifyService
     ObjectifyService.register(Device.class);
-    ObjectifyService.register(DeviceReport.class);
-
-    // Cache the list of URLs
-    try {
-      DeviceRest.cacheWebPageUrls();
-    } catch (CacheException e) {
-      LOGGER.severe("Error caching WebPageUrls " + e.getMessage());
-    }
+    ObjectifyService.register(DeviceTemperatureHumidityReport.class);
   }
 }

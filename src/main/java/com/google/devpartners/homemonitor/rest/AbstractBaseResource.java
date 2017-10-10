@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.devpartners.webperformance.rest;
+package com.google.devpartners.homemonitor.rest;
 
 import java.net.URL;
 import java.net.URLDecoder;
@@ -39,8 +39,8 @@ import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import com.google.common.collect.Maps;
-import com.google.devpartners.webperformance.util.DateUtil;
-import com.google.devpartners.webperformance.util.GsonUtil;
+import com.google.devpartners.homemonitor.util.DateUtil;
+import com.google.devpartners.homemonitor.util.GsonUtil;
 import com.google.gson.Gson;
 
 /**

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.devpartners.webperformance.util;
+package com.google.devpartners.homemonitor.util;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,6 +51,8 @@ public final class DateUtil {
   private static final String DATE_FORMAT_SHORT_WITHOUTDAY_NODASH = "yyyyMM";
   private static final DateTimeFormatter dfYearMonthNoDash =
       DateTimeFormat.forPattern(DATE_FORMAT_SHORT_WITHOUTDAY_NODASH);
+
+  protected static final String FULL_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SS";
 
   private static final List<DateTimeFormatter> formatters = new ArrayList<DateTimeFormatter>();
   static {

@@ -12,9 +12,8 @@
 //See the License for the specific language governing permissions and
 //limitations under the License.
 
-package com.google.devpartners.webperformance.rest;
+package com.google.devpartners.homemonitor.rest;
 
-import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
@@ -26,15 +25,19 @@ import org.restlet.resource.ResourceException;
 
 import com.google.common.collect.Lists;
 import com.google.devpartners.homemonitor.RestServer;
-import com.google.devpartners.webperformance.model.DeviceReport;
-import com.google.devpartners.webperformance.util.DateUtil;
+import com.google.devpartners.homemonitor.model.DeviceReport;
+import com.google.devpartners.homemonitor.model.DeviceTemperatureHumidityReport;
+import com.google.devpartners.homemonitor.util.DateUtil;
+import com.google.devpartners.homemonitor.util.GsonUtil;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 /**
  * Rest entry point to get, create or update SpeedReports.
  * 
  * @author jtoledo@google.com
  */
-public class DeviceReportRest extends AbstractBaseResource {
+public class DeviceTemperatureHumidityReportRest extends AbstractBaseResource {
 
   /**
    * Gets a PageSpeedReport by Id, URL or a complete list
@@ -48,35 +51,26 @@ public class DeviceReportRest extends AbstractBaseResource {
     String result = null;
 
     try {
-
-      String webPageUrlId = getParameter("webPageUrlId");
-      URL url = getParameterAsUrl("url");
+      String deviceId = getParameter("deviceId");
       Date dateStart = getParameterAsDate("dateStart");
       Date dateEnd = getParameterAsDate("dateEnd");
       Boolean isForGraph = getParameterAsBoolean("graph");
       Integer limit = getParameterAsInteger("limit");
       Integer numToSkip = getParameterAsInteger("numToSkip");
 
-      List<DeviceReport> speedReportList = Lists.newArrayList();
-      if (webPageUrlId != null) {
-        LOGGER.info("Getting PageSpeedReport by webPageUrlId");
-        speedReportList = RestServer.getPersister().get(
-          DeviceReport.class, DeviceReport.WEBPAGEURLID, webPageUrlId, DeviceReport.DATE, dateStart, dateEnd, numToSkip, limit);
-        if (speedReportList.size() == 0) {
-          throw new ResourceException(Status.CLIENT_ERROR_NOT_FOUND, "No PageSpeedReport with that webPageUrlId were found");
-        }
-
-      } else if (url != null) {
-        LOGGER.info("Getting PageSpeedReport by url");
-        speedReportList = RestServer.getPersister().get(
-          DeviceReport.class, DeviceReport.URL, url, DeviceReport.DATE, dateStart, dateEnd, numToSkip, limit);
-        if (speedReportList.size() == 0) {
-          throw new ResourceException(Status.CLIENT_ERROR_NOT_FOUND, "No PageSpeedReport with that url were found");
+      List<DeviceTemperatureHumidityReport> deviceReportList = Lists.newArrayList();
+      if (deviceId != null) {
+        LOGGER.info("Getting DeviceTemperatureHumidityReports by deviceId");
+        deviceReportList = RestServer.getPersister().get(
+            DeviceTemperatureHumidityReport.class, DeviceTemperatureHumidityReport.DEVICE_ID, deviceId,
+            DeviceTemperatureHumidityReport.DATE, dateStart, dateEnd, numToSkip, limit);
+        if (deviceReportList.size() == 0) {
+          throw new ResourceException(Status.CLIENT_ERROR_NOT_FOUND, "No DeviceTemperatureHumidityReports with that deviceId were found");
         }
 
       } else {
         LOGGER.info("Getting all PageSpeedReport");
-        speedReportList = RestServer.getPersister().get(DeviceReport.class);
+        deviceReportList = RestServer.getPersister().get(DeviceTemperatureHumidityReport.class);
       }
 
       if (isForGraph) {
@@ -84,30 +78,25 @@ public class DeviceReportRest extends AbstractBaseResource {
         JSONObject data = new JSONObject();
         JSONArray columns = new JSONArray();
         columns.put(new JSONObject("{label: 'Date', type: 'date'}"));
-        columns.put(new JSONObject("{label: 'Desktop Speed', type: 'number'}"));
-        columns.put(new JSONObject("{label: 'Mobile Speed', type: 'number'}"));
-        columns.put(new JSONObject("{label: 'Mobile UX', type: 'number'}"));
+        columns.put(new JSONObject("{label: 'Temperature', type: 'number'}"));
+        columns.put(new JSONObject("{label: 'Humidity', type: 'number'}"));
         data.put("cols", columns);
 
         JSONArray rows = new JSONArray();
-        for (DeviceReport speedReport : speedReportList ) {
+        for (DeviceTemperatureHumidityReport deviceReport : deviceReportList ) {
           JSONArray cArray = new JSONArray();
 
           JSONObject date = new JSONObject();
-          date.put("v", DateUtil.getGoogleChartsDate(speedReport.getDate()));
+          date.put("v", DateUtil.getGoogleChartsDate(deviceReport.getDate()));
           cArray.put(date);
 
           JSONObject desktopSpeed = new JSONObject();
-          desktopSpeed.put("v", speedReport.getPageSpeedDesktopSpeed());
+          desktopSpeed.put("v", deviceReport.getTemperature());
           cArray.put(desktopSpeed);
 
           JSONObject mobileSpeed = new JSONObject();
-          mobileSpeed.put("v", speedReport.getPageSpeedMobileSpeed());
+          mobileSpeed.put("v", deviceReport.getHumidity());
           cArray.put(mobileSpeed);
-
-          JSONObject mobileUX = new JSONObject();
-          mobileUX.put("v", speedReport.getPageSpeedMobileUX());
-          cArray.put(mobileUX);
 
           JSONObject row = new JSONObject();
           row.put("c", cArray);
@@ -118,7 +107,7 @@ public class DeviceReportRest extends AbstractBaseResource {
 
         result = data.toString();
       } else {
-        result = gson.toJson(speedReportList);  
+        result = gson.toJson(deviceReportList);  
       }
 
     } catch (Exception exception) {
@@ -126,6 +115,32 @@ public class DeviceReportRest extends AbstractBaseResource {
     }
 
     addReadOnlyHeaders();
+    return createJsonResult(result);
+  }
+
+  @Override
+  public Representation postPutHandler(String json) {
+    String result = null;
+
+    try {
+      if (this.getReference().getSegments().size() != 1) {
+        throw new IllegalArgumentException(
+            "We only support Post/Put in the base url: /devicereport (no additional segments /{id})");
+      }
+
+      JsonParser jsonParser = new JsonParser();
+      JsonElement jsonElement = jsonParser.parse(json);
+
+      DeviceTemperatureHumidityReport deviceReport =
+          GsonUtil.getGsonBuilder().create().fromJson(jsonElement, DeviceTemperatureHumidityReport.class);
+      LOGGER.info("Persisting DeviceTemperatureHumidityReport...");
+      deviceReport = RestServer.getPersister().save(deviceReport);
+      result = gson.toJson(deviceReport);
+
+    } catch (Exception exception) {
+      return handleException(exception);
+    }
+    addHeaders();
     return createJsonResult(result);
   }
 }

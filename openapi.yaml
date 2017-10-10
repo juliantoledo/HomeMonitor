@@ -17,16 +17,28 @@
       "https"
    ],
    "paths":{  
-      "/webpageurl":{  
-         "post":{  
-            "description":"Create or Update a WebPageUrl",
-            "operationId":"postWebPageUrl",
+      "/device":{  
+         "get":{  
+            "description":"Get Device",
+            "operationId":"getDevice",
             "produces":[  
                "application/json"
             ],
             "responses":{  
                "200":{  
-                  "description":"Created or Updated WebPageUrl"
+                  "description":"Created or Updated Device"
+               }
+            }
+         },
+         "post":{  
+            "description":"Create or Update a Device",
+            "operationId":"postDevice",
+            "produces":[  
+               "application/json"
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"Created or Updated Device"
                }
             },
             "security":[  
@@ -38,14 +50,14 @@
             ]
          },
          "put":{  
-            "description":"Create or Update a WebPageUrl",
-            "operationId":"putWebPageUrl",
+            "description":"Create or Update a Device",
+            "operationId":"putDevice",
             "produces":[  
                "application/json"
             ],
             "responses":{  
                "200":{  
-                  "description":"Created or Updated WebPageUrl"
+                  "description":"Created or Updated Device"
                }
             },
             "security":[  
@@ -57,10 +69,10 @@
             ]
          }
       },
-      "/webpageurl/{id}":{  
+      "/device/{id}":{  
          "delete":{  
-            "description":"Delete one WebPageUrl",
-            "operationId":"deleteWebPageUrl",
+            "description":"Delete one Device",
+            "operationId":"deleteDevice",
             "produces":[  
                "application/json"
             ],
@@ -73,7 +85,7 @@
             ],
             "responses":{  
                "200":{  
-                  "description":"One WebPageUrl"
+                  "description":"One Device"
                }
             },
             "security":[  
@@ -85,16 +97,16 @@
             ]
          }
       },
-      "/eventannotation":{  
+      "/devicereport":{  
          "post":{  
-            "description":"Create or Update a EventAnnotation",
-            "operationId":"postEventAnnotation",
+            "description":"Create or Update a DeviceReport",
+            "operationId":"postDeviceReport",
             "produces":[  
                "application/json"
             ],
             "responses":{  
                "200":{  
-                  "description":"Created or Updated EventAnnotation"
+                  "description":"Created or Updated DeviceReport"
                }
             },
             "security":[  
@@ -106,42 +118,14 @@
             ]
          },
          "put":{  
-            "description":"Create or Update a EventAnnotation",
-            "operationId":"putEventAnnotation",
+            "description":"Create or Update a DeviceReport",
+            "operationId":"putDeviceReport",
             "produces":[  
                "application/json"
             ],
             "responses":{  
                "200":{  
-                  "description":"Created or Updated EventAnnotation"
-               }
-            },
-            "security":[  
-               {  
-                  "api_key":[  
-
-                  ]
-               }
-            ]
-         }
-      },
-      "/eventannotation/{id}":{  
-         "delete":{  
-            "description":"Delete one EventAnnotation",
-            "operationId":"deleteEventAnnotation",
-            "produces":[  
-               "application/json"
-            ],
-            "parameters":[  
-               {  
-                  "name":"id",
-                  "in":"path",
-                  "type":"string"
-               }
-            ],
-            "responses":{  
-               "200":{  
-                  "description":"Deleted EventAnnotation"
+                  "description":"Created or Updated DeviceReport"
                }
             },
             "security":[  

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.devpartners.webperformance.util;
+package com.google.devpartners.homemonitor.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

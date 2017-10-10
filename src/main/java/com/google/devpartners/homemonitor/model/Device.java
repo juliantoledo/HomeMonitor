@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.devpartners.webperformance.model;
+package com.google.devpartners.homemonitor.model;
 
 import java.util.Date;
 import java.util.List;
@@ -29,7 +29,7 @@ import com.googlecode.objectify.annotation.Index;
  */
 @Entity
 @Cache
-abstract public class Device {
+public class Device {
 
   public static String DEVICE = "Device";
 
@@ -57,6 +57,10 @@ abstract public class Device {
 
   @Index
   private Date updated;
+  
+  public Device() {
+    setCreated();
+  }
 
   public Device(String owner, String description, String location, List<type> types) {
     this.owner = owner;
@@ -95,6 +99,8 @@ abstract public class Device {
     Date now = new Date();
       this.created = now;
       this.updated = now;
+    } else {
+      setUpdated();
     }
   }
 
