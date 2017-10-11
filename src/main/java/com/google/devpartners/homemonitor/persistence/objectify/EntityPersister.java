@@ -118,10 +118,10 @@ public interface EntityPersister {
    * @param dateEnd the last date
    * @return the list of entities that were found.
    */
-  <T> List<T> get(Class<T> classT, String key, Object value, String dateKey, Date dateStart,
+  <T, V> List<T> get(Class<T> classT, String key, V value, String dateKey, Date dateStart,
       Date dateEnd);
 
-  <T> List<T> get(Class<T> classT, String key, Object value, String keyToCompare,
+  <T, V> List<T> get(Class<T> classT, String key, V value, String keyToCompare,
       String valueGreaterEqual, String valueLessEqual);
 
   /**
@@ -138,7 +138,7 @@ public interface EntityPersister {
    * @param limit the limit of the page size
    * @return the list of entities that were found.
    */
-  <T> List<T> get(Class<T> classT, String key, Object value, String dateKey, Date dateStart,
+  <T, V> List<T> get(Class<T> classT, String key, V value, String dateKey, Date dateStart,
       Date dateEnd, Integer numToSkip, Integer limit);
 
   /**

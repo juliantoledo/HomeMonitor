@@ -136,7 +136,7 @@ public class ObjectifyEntityPersister implements EntityPersister, Serializable {
    *      java.lang.String, java.util.Date, java.util.Date)
    */
   @Override
-  public <T> List<T> get(Class<T> classT, String key, Object value, String dateKey, Date dateStart,
+  public <T, V> List<T> get(Class<T> classT, String key, V value, String dateKey, Date dateStart,
       Date dateEnd) {
     return get(classT, key, value, dateKey, dateStart, dateEnd, 0, 0);
   }
@@ -147,7 +147,7 @@ public class ObjectifyEntityPersister implements EntityPersister, Serializable {
    *      java.lang.String, java.util.Date, java.util.Date, Integer, Integer)
    */
   @Override
-  public <T> List<T> get(Class<T> classT, String key, Object value, String dateKey, Date dateStart,
+  public <T, V> List<T> get(Class<T> classT, String key, V value, String dateKey, Date dateStart,
       Date dateEnd, Integer numToSkip, Integer limit) {
 
     Query<T> query = ofy().load().type(classT);
@@ -178,7 +178,7 @@ public class ObjectifyEntityPersister implements EntityPersister, Serializable {
   }
 
   @Override
-  public <T> List<T> get(Class<T> classT, String key, Object value, String dateKey,
+  public <T, V> List<T> get(Class<T> classT, String key, V value, String dateKey,
       String dateStart, String dateEnd) {
 
     Query<T> query = ofy().load().type(classT);

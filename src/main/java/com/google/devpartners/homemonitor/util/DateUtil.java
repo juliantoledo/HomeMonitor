@@ -52,7 +52,7 @@ public final class DateUtil {
   private static final DateTimeFormatter dfYearMonthNoDash =
       DateTimeFormat.forPattern(DATE_FORMAT_SHORT_WITHOUTDAY_NODASH);
 
-  protected static final String FULL_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SS";
+  protected static final String FULL_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
   private static final List<DateTimeFormatter> formatters = new ArrayList<DateTimeFormatter>();
   static {
@@ -240,5 +240,12 @@ public final class DateUtil {
     Calendar calendar = new GregorianCalendar();
     calendar.setTime(date);
     return "Date(" + calendar.get(Calendar.YEAR) + "," + calendar.get(Calendar.MONTH) + "," + calendar.get(Calendar.DATE) + ")";
+  }
+
+  public static String getGoogleChartsDateTime(Date date) {
+    Calendar calendar = new GregorianCalendar();
+    calendar.setTime(date);
+    return "Date(" + calendar.get(Calendar.YEAR) + "," + calendar.get(Calendar.MONTH) + "," + calendar.get(Calendar.DATE) + "," +
+                     calendar.get(Calendar.HOUR) + "," + calendar.get(Calendar.MINUTE) + "," + calendar.get(Calendar.SECOND) + "," + calendar.get(Calendar.MILLISECOND) + ")";
   }
 }

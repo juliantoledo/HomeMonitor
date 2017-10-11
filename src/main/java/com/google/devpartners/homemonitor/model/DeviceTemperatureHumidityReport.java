@@ -38,12 +38,20 @@ public class DeviceTemperatureHumidityReport extends DeviceReport {
     return temperature;
   }
 
+  public String getTemperatureString() {
+    return String.format("%.02f", temperature);
+  }
+
   public void setTemperature(float temperature) {
     this.temperature = temperature;
   }
 
   public float getHumidity() {
     return humidity;
+  }
+
+  public String getHumidityString() {
+    return String.format("%.02f", humidity);
   }
 
   public void setHumidity(float humidity) {

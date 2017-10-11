@@ -51,7 +51,7 @@ public class DeviceTemperatureHumidityReportRest extends AbstractBaseResource {
     String result = null;
 
     try {
-      String deviceId = getParameter("deviceId");
+      Long deviceId = getParameterAsLong("deviceId");
       Date dateStart = getParameterAsDate("dateStart");
       Date dateEnd = getParameterAsDate("dateEnd");
       Boolean isForGraph = getParameterAsBoolean("graph");
@@ -74,7 +74,7 @@ public class DeviceTemperatureHumidityReportRest extends AbstractBaseResource {
       }
 
       if (isForGraph) {
-        // Transform json to the google-chart format
+        // Transform JSON to the google-chart format
         JSONObject data = new JSONObject();
         JSONArray columns = new JSONArray();
         columns.put(new JSONObject("{label: 'Date', type: 'date'}"));
@@ -87,15 +87,15 @@ public class DeviceTemperatureHumidityReportRest extends AbstractBaseResource {
           JSONArray cArray = new JSONArray();
 
           JSONObject date = new JSONObject();
-          date.put("v", DateUtil.getGoogleChartsDate(deviceReport.getDate()));
+          date.put("v", DateUtil.getGoogleChartsDateTime(deviceReport.getDate()));
           cArray.put(date);
 
           JSONObject desktopSpeed = new JSONObject();
-          desktopSpeed.put("v", deviceReport.getTemperature());
+          desktopSpeed.put("v", deviceReport.getTemperatureString());
           cArray.put(desktopSpeed);
 
           JSONObject mobileSpeed = new JSONObject();
-          mobileSpeed.put("v", deviceReport.getHumidity());
+          mobileSpeed.put("v", deviceReport.getHumidityString());
           cArray.put(mobileSpeed);
 
           JSONObject row = new JSONObject();

@@ -68,7 +68,6 @@ public class DeviceRest extends AbstractBaseResource {
           throw new ResourceException(Status.CLIENT_ERROR_NOT_FOUND,
               "No Device with that owner was found");
         }
-
       } else {
         LOGGER.info("Getting all Devices");
         deviceList = RestServer.getPersister().get(Device.class);
