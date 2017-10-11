@@ -245,7 +245,10 @@ public final class DateUtil {
   public static String getGoogleChartsDateTime(Date date) {
     Calendar calendar = new GregorianCalendar();
     calendar.setTime(date);
+    return "Date(" + calendar.getTimeInMillis()  + ")";
+    /*
     return "Date(" + calendar.get(Calendar.YEAR) + "," + calendar.get(Calendar.MONTH) + "," + calendar.get(Calendar.DATE) + "," +
-                     calendar.get(Calendar.HOUR) + "," + calendar.get(Calendar.MINUTE) + "," + calendar.get(Calendar.SECOND) + "," + calendar.get(Calendar.MILLISECOND) + ")";
+                     calendar.get(Calendar.HOUR_OF_DAY) + "," + calendar.get(Calendar.MINUTE) + "," + calendar.get(Calendar.SECOND) + "," + calendar.get(Calendar.MILLISECOND) + ")";
+    */
   }
 }

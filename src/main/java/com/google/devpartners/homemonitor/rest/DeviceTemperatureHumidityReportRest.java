@@ -78,8 +78,8 @@ public class DeviceTemperatureHumidityReportRest extends AbstractBaseResource {
         JSONObject data = new JSONObject();
         JSONArray columns = new JSONArray();
         columns.put(new JSONObject("{label: 'Date', type: 'date'}"));
-        columns.put(new JSONObject("{label: 'Temperature', type: 'number'}"));
         columns.put(new JSONObject("{label: 'Humidity', type: 'number'}"));
+        columns.put(new JSONObject("{label: 'Temperature', type: 'number'}"));
         data.put("cols", columns);
 
         JSONArray rows = new JSONArray();
@@ -90,13 +90,13 @@ public class DeviceTemperatureHumidityReportRest extends AbstractBaseResource {
           date.put("v", DateUtil.getGoogleChartsDateTime(deviceReport.getDate()));
           cArray.put(date);
 
-          JSONObject desktopSpeed = new JSONObject();
-          desktopSpeed.put("v", deviceReport.getTemperatureString());
-          cArray.put(desktopSpeed);
-
-          JSONObject mobileSpeed = new JSONObject();
-          mobileSpeed.put("v", deviceReport.getHumidityString());
-          cArray.put(mobileSpeed);
+          JSONObject humidity = new JSONObject();
+          humidity.put("v", deviceReport.getHumidity());
+          cArray.put(humidity);
+         
+          JSONObject temperature = new JSONObject();
+          temperature.put("v", deviceReport.getTemperature());
+          cArray.put(temperature);
 
           JSONObject row = new JSONObject();
           row.put("c", cArray);
