@@ -56,7 +56,7 @@ public abstract class AbstractBaseResource extends ServerResource {
 
   protected static final Gson gson = GsonUtil.getGsonBuilder().create();
   
-  protected static final int MAX_AGE = 60 * 60 * 24; // 24 hours.
+  protected static final int MAX_AGE = 60 * 5; // 5 Minutes.
 
   @Get
   abstract public Representation getHandler();
